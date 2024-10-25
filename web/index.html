@@ -10,10 +10,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <h2>Insert User Data</h2>
+        <h2>Login</h2>
     <form action="NewServlet" method="post">
-        Username: <input type="text" name="username"><br><br>
         Email: <input type="text" name="email"><br><br>
+        Password:<input type="password" name="password"><br><br>
+        Role:<select name="role">
+            <option>Registrar</option>
+            <option>Police</option>
+            <option>Judge</option>
+            <option>Lawyer</option>
+            <option>Culprit</option>
+        </select>
+        <br><!-- comment -->
+        <br>
         <input type="submit" value="Submit">
     </form>
     </body>

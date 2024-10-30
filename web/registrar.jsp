@@ -13,5 +13,8 @@
     </head>
     <body>
         <h1>Registrar Page</h1>
+        <a href='GetUsers'><button>Manage Accounts</button></a>
+        <a><button>View FIR's</button></a>
+        <button>View Cases</button>
     </body>
 </html>

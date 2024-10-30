@@ -1,14 +1,22 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.*;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.annotation.WebServlet;
-@WebServlet("/fetchData")
-public class NewServlet extends HttpServlet {
-    
+import java.sql.*;
+/**
+ *
+ * @author rushendra
+ */
+@WebServlet("/createUser")
+public class createUser extends HttpServlet {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/JIS";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "password";
@@ -29,10 +37,10 @@ public class NewServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");
+            out.println("<title>Servlet createUser</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet NewServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet createUser at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,64 +70,34 @@ public class NewServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-
-        String password = request.getParameter("password");
+        
+        String name = request.getParameter("name");
         String email = request.getParameter("email");
-        String role = request.getParameter("role").toLowerCase();
+        String password = request.getParameter("password");
+        String role = request.getParameter("role");
+        
         Connection conn = null;
-        PreparedStatement pstmt = null;
-        Statement statement = null;
-        ResultSet result = null;
-        try {
-            // Step 1: Load the JDBC driver
+        PreparedStatement pstmt;
+        try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-            // Step 2: Establish the connection
-            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-
-            // Step 3: Create the SQL query
-//            StrStringing sql = "INSERT INTO users (username, email) VALUES (?, ?)";
-
-//                String query = "SELECT * FROM use"
-            // Step 4: Prepare the statement
-            String query = "SELECT * FROM users WHERE email = ?";
+            conn = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
             
-//            statement = conn.createStatement();
-//            statement.setString(1,email);
-               pstmt = conn.prepareStatement(query);
-               pstmt.setString(1, email);
-//            pstmt.setString(1,email);
-//            pstmt.setString(1, username);
-//            pstmt.setString(2, email);
-
-            // Step 5: Execute the query
-            
-            result = pstmt.executeQuery();
-            
-            out.println("<html><body>");
-            if(result.next() && result.getString("password").equals(password) && result.getString("role").equals(role)){
-//                out.println("<p>Email: " + result.getString("email") + "</p>");
-//                out.println("<p>Role: " + result.getString("role") + "</p>");
-                
-                   request.getRequestDispatcher(role+".jsp").forward(request, response);
+            String query = "INSERT INTO users VALUES(?,?,?,?)";
+            pstmt = conn.prepareStatement(query);
+            pstmt.setString(1,name);
+            pstmt.setString(2,email);
+            pstmt.setString(3,password);
+            pstmt.setString(4,role);
+            int rowsInserted = pstmt.executeUpdate();
+            if (rowsInserted > 0) {
+                response.getWriter().println("User added successfully!");
+            } else {
+                response.getWriter().println("Failed to add user.");
             }
-            else{
-                out.println("<h1>No user found</h1>");
-            }
-//            while(result.next()){
-//                out.println("<p>"+result.getString("email")+"&nbsp;"+result.getString("password")+"</p>");
-//            }
-        } catch (ClassNotFoundException | SQLException e) {
-            out.println("<h3>Error: " + e.getMessage() + "</h3>");
-        } finally {
-            try {
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-            }
+        }catch(Exception e){
+            response.getWriter().println("Error in creating user"+e);
         }
     }
 

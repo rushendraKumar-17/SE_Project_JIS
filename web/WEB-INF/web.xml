@@ -8,6 +8,14 @@
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/NewServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+    <servlet-name>createUser</servlet-name>
+    <servlet-class>createUser</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>createUser</servlet-name>
+    <url-pattern>/createUser</url-pattern>
+</servlet-mapping>
     <session-config>
         <session-timeout>
             30

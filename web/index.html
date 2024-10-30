@@ -5,16 +5,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Judiciary System</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="index.css">
     </head>
     <body>
-        <h2>Login</h2>
+        <h1>Login</h1>
+        <div class="formDiv">
     <form action="NewServlet" method="post">
-        Email: <input type="text" name="email"><br><br>
-        Password:<input type="password" name="password"><br><br>
-        Role:<select name="role">
+        <label for="email" class="label">Email:</label>
+        <input type="text" name="email" id="email"><br><br>
+        <label for="email" class="label">Password:</label>
+        <input type="password" name="password" id="password"><br><br>
+        <label for="email">Role:</label>
+        <select name="role" id="role">
             <option>Registrar</option>
             <option>Police</option>
             <option>Judge</option>
@@ -23,7 +28,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         </select>
         <br><!-- comment -->
         <br>
-        <input type="submit" value="Submit">
+        <button type="submit" class="submitBtn">Submit</button>
     </form>
+            </div>
     </body>
 </html>
